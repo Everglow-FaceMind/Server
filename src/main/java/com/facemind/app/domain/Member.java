@@ -1,9 +1,7 @@
 package com.facemind.app.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.facemind.app.domain.enums.Auth;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -18,4 +16,7 @@ public class Member {
     private String nickname;
     private String email;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Auth authority;
 }
