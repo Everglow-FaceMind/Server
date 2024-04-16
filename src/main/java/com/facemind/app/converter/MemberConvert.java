@@ -1,7 +1,7 @@
-package com.facemind.app.convertor;
+package com.facemind.app.converter;
 
 import com.facemind.app.domain.Member;
-import com.facemind.app.dto.MemberResponseDto;
+import com.facemind.app.web.dto.MemberResponseDto;
 
 public class MemberConvert {
     public static MemberResponseDto toMemberResponseDto(Member member){

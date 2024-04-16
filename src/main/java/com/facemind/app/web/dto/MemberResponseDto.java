@@ -1,14 +1,18 @@
-package com.facemind.app.dto;
+package com.facemind.app.web.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberRequestDto {
+@Builder
+public class MemberResponseDto {
+    private Long id;
+    private String nickname;
     private String email;
     private String password;
-    private String nickname;
+    private String auth;
 }

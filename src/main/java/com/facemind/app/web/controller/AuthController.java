@@ -1,13 +1,12 @@
-package com.facemind.app.controller;
+package com.facemind.app.web.controller;
 
-import com.facemind.app.dto.LoginRequestDto;
-import com.facemind.app.dto.MemberRequestDto;
-import com.facemind.app.dto.MemberResponseDto;
+import com.facemind.app.web.dto.LoginRequestDto;
+import com.facemind.app.web.dto.MemberRequestDto;
+import com.facemind.app.web.dto.MemberResponseDto;
 import com.facemind.app.service.AuthService;
 import com.facemind.global.token.dto.TokenDto;
 import com.facemind.global.token.dto.TokenRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
