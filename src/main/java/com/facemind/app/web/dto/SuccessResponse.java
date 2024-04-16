@@ -3,7 +3,7 @@ package com.facemind.app.web.dto;
 import lombok.*;
 
 
-public class SuccessResponseDto {
+public class SuccessResponse {
 
     @Getter
     @Builder

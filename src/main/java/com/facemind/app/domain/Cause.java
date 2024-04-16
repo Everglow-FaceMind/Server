@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CauseOfEmotion {
+public class Cause {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -17,4 +17,8 @@ public class CauseOfEmotion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "journal_id")
     private Journal journal;
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
 }

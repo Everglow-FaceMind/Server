@@ -4,13 +4,13 @@ import lombok.*;
 
 import java.util.List;
 
-public class JournalRequestDto {
+public class JournalRequest {
 
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class JournalOnlyRequestDto{
+    public static class JournalOnlyDto{
         private List<String> emotions;
         private List<String> cause;
         private String note;

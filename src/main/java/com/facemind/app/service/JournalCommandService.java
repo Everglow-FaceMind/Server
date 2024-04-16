@@ -1,26 +1,26 @@
 package com.facemind.app.service;
 
-import com.facemind.app.domain.Cause;
-import com.facemind.app.domain.Journal;
-import com.facemind.app.domain.Member;
-import com.facemind.app.domain.Result;
-import com.facemind.app.repository.CauseRepository;
+import com.facemind.app.domain.*;
 import com.facemind.app.repository.JournalRepository;
-import com.facemind.app.repository.MemberRepository;
-import jakarta.persistence.Temporal;
+import com.facemind.app.repository.ResultRepository;
+import com.facemind.global.exception.ErrorCode;
+import com.facemind.global.exception.RestApiException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 import static com.facemind.app.web.dto.JournalRequest.JournalOnlyDto;
 
 @Service
 @RequiredArgsConstructor
-public class JournalService {
+@Slf4j
+public class JournalCommandService {
     private final JournalRepository journalRepository;
-    private final MemberRepository memberRepository;
-    private final CauseRepository causeRepository;
-    private final Result
+    private final ResultRepository resultRepository;
 
     /**
      * 일지 등록
@@ -29,13 +29,65 @@ public class JournalService {
      * @param journalOnlyDto
      * @return journal-id
      */
-    @Transactional()
+    @Transactional
     public Long createJournal(Member member, Long resultId, JournalOnlyDto journalOnlyDto) {
-        Result result =
         Journal journal = Journal.builder()
-                .note()
-                .
-        return null;
+                .note(journalOnlyDto.getNote())
+                .member(member)
+                .result(findResultById(resultId))
+                .build();
+        mapEmotionAndJournal(journalOnlyDto.getEmotions(), journal);
+        mapCauseAndJournal(journalOnlyDto.getCause(), journal);
+        return journalRepository.save(journal).getId();
     }
+
+    /**
+     * 일지 수정
+     * @param member
+     * @param journalId
+     * @param journalOnlyDto
+     */
+    @Transactional
+    public void modifyJournal(Member member, Long journalId, JournalOnlyDto journalOnlyDto) {
+        Journal journal = findJournalById(journalId);
+        journal.modifyNote(journalOnlyDto.getNote());
+        journal.getEmotions().clear();
+        journal.getCauses().clear();
+        mapEmotionAndJournal(journalOnlyDto.getEmotions(), journal);
+        mapCauseAndJournal(journalOnlyDto.getCause(), journal);
+    }
+
+    private Result findResultById(Long resultId){
+        Optional<Result> optionalResult = resultRepository.findById(resultId);
+        if(optionalResult.isPresent()){
+            return optionalResult.get();
+        } else{
+            throw new RestApiException(ErrorCode.RESULT_NOT_FOUND);
+        }
+    }
+
+    private Journal findJournalById(Long journalId){
+        Optional<Journal> optionalJournal = journalRepository.findById(journalId);
+        if(optionalJournal.isPresent()){
+            return optionalJournal.get();
+        } else{
+            throw new RestApiException(ErrorCode.JOURNAL_NOT_FOUND);
+        }
+    }
+
+    private void mapEmotionAndJournal(List<String> emotionNames, Journal journal){
+        emotionNames.forEach(emotionName ->{
+            Emotion emotion = Emotion.builder().name(emotionName).build();
+            journal.addEmotion(emotion);
+        });
+    }
+
+    private void mapCauseAndJournal(List<String> causes, Journal journal){
+        causes.forEach(causeName -> {
+            Cause cause = Cause.builder().name(causeName).build();
+            journal.addCause(cause);
+        });
+    }
+
 
 }

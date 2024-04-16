@@ -17,4 +17,8 @@ public class Emotion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "journal_id")
     private Journal journal;
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
 }
