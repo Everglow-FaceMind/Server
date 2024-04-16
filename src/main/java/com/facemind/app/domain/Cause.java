@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Emotion {
+public class Cause {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

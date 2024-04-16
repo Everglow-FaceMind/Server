@@ -15,9 +15,16 @@ public enum ErrorCode {
     INVALID_TYPE_ERROR(HttpStatus.BAD_REQUEST, 400, "올바르지 않은 타입입니다."),
     ILLEGAL_ARGUMENT_ERROR(HttpStatus.BAD_REQUEST, 400, "필수 파라미터가 없습니다"),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요."),
-    INVALID_HTTP_METHOD(HttpStatus.METHOD_NOT_ALLOWED, 400, "잘못된 Http Method 요청입니다.");
+    INVALID_HTTP_METHOD(HttpStatus.METHOD_NOT_ALLOWED, 400, "잘못된 Http Method 요청입니다."),
 
-    //User (2000번대)
+    //MEMBER (2000번대)
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, 2001, "존재하지 않는 회원입니다."),
+
+    //RESULT (3000번대)
+    RESULT_NOT_FOUND(HttpStatus.BAD_REQUEST, 3001, "존재하지 않는 검사 결과입니다."),
+
+    //JOURNAL (4000번대)
+    JOURNAL_NOT_FOUND(HttpStatus.BAD_REQUEST, 4001, "존재하지 않는 일지입니다.");
 
 
     private final HttpStatus httpStatus;
