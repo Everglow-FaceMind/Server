@@ -1,6 +1,7 @@
 package com.facemind.global.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,9 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 @Builder
+@JsonPropertyOrder({"success", "httpStatus", "code", "message", "errors"})
 public class ErrorResponse {
-    private final boolean isSuccess = false;
+    private final boolean success = false;
     private final HttpStatus httpStatus;
     private final int code;
     private final String message;
