@@ -20,3 +20,6 @@ spring:
 
 jwt:
   secret: bHO0iXdu2GfRE1Lj0GMSTrcv5U2Xqy0+VDViviWOh4QS9t1q69NOWD20nZO5/o6UyKUKS7w8pkpygfN9XF1vg==agasuqwrqkje
+
+server:
+  port: 8081

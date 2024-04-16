@@ -1,10 +1,10 @@
 package com.facemind.app.service;
 
-import com.facemind.app.convertor.MemberConvert;
+import com.facemind.app.converter.MemberConvert;
 import com.facemind.app.domain.Member;
-import com.facemind.app.dto.LoginRequestDto;
-import com.facemind.app.dto.MemberRequestDto;
-import com.facemind.app.dto.MemberResponseDto;
+import com.facemind.app.web.dto.LoginRequestDto;
+import com.facemind.app.web.dto.MemberRequestDto;
+import com.facemind.app.web.dto.MemberResponseDto;
 import com.facemind.app.domain.enums.Auth;
 import com.facemind.app.repository.MemberRepository;
 import com.facemind.app.repository.RefreshTokenRepository;
