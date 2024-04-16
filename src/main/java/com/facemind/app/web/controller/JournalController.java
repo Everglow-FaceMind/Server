@@ -65,4 +65,24 @@ public class JournalController {
         );
     }
 
+    @DeleteMapping("/{journal-id}")
+    public ResponseEntity<SuccessResponse.MessageDto> deleteJournal(
+            @PathVariable("journal-id") Long id
+    ){
+        // 멤버 찾아오는 로직 추가 (여기는 추후 삭제)
+        Optional<Member> optionalMember = memberRepository.findById(1L);
+        Member member;
+        if (optionalMember.isPresent()){
+            member = optionalMember.get();
+        } else{
+            throw new RestApiException(ErrorCode.MEMBER_NOT_FOUND);
+        }
+
+        journalCommandService.deleteJournal(id);
+        return new ResponseEntity<>(
+                SuccessResponse.MessageDto.builder().message("일지 삭제 완료").build(),
+                HttpStatus.OK
+        );
+    }
+
 }

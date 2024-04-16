@@ -38,14 +38,6 @@ public class Journal {
         this.note = note;
     }
 
-    public void clearCauses(){
-        this.causes = new ArrayList<>();
-    }
-
-    public void clearEmotions(){
-        this.emotions = new ArrayList<>();
-    }
-
     public void addEmotion(Emotion emotion) {
         emotion.setJournal(this);
         this.emotions.add(emotion);

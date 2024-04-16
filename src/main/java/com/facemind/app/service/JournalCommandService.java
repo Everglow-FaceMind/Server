@@ -1,6 +1,7 @@
 package com.facemind.app.service;
 
 import com.facemind.app.domain.*;
+import com.facemind.app.repository.JournalImplRepository;
 import com.facemind.app.repository.JournalRepository;
 import com.facemind.app.repository.ResultRepository;
 import com.facemind.global.exception.ErrorCode;
@@ -20,6 +21,7 @@ import static com.facemind.app.web.dto.JournalRequest.JournalOnlyDto;
 @Slf4j
 public class JournalCommandService {
     private final JournalRepository journalRepository;
+    private final JournalImplRepository journalImplRepository;
     private final ResultRepository resultRepository;
 
     /**
@@ -51,10 +53,22 @@ public class JournalCommandService {
     public void modifyJournal(Member member, Long journalId, JournalOnlyDto journalOnlyDto) {
         Journal journal = findJournalById(journalId);
         journal.modifyNote(journalOnlyDto.getNote());
+        // orphan 삭제하고, jpql 작성 (성능 최적화)
         journal.getEmotions().clear();
         journal.getCauses().clear();
         mapEmotionAndJournal(journalOnlyDto.getEmotions(), journal);
         mapCauseAndJournal(journalOnlyDto.getCause(), journal);
+    }
+
+    /**
+     * 일지 삭제
+     * @param journalId
+     */
+    @Transactional
+    public void deleteJournal(Long journalId) {
+        Journal journal = findJournalById(journalId);
+        //이거 때문에 e, c의 select 쿼리까지 나감. (jpql 수정)
+        journalRepository.deleteById(journal.getId());
     }
 
     private Result findResultById(Long resultId){
@@ -88,6 +102,5 @@ public class JournalCommandService {
             journal.addCause(cause);
         });
     }
-
 
 }
