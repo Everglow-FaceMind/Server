@@ -1,4 +1,4 @@
-package com.facemind.global.token.dto;
+package com.facemind.global.jwt.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

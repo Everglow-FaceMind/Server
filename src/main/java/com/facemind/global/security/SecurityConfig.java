@@ -1,7 +1,7 @@
 package com.facemind.global.security;
 
-import com.facemind.global.token.JwtFilter;
-import com.facemind.global.token.TokenProvider;
+import com.facemind.global.jwt.JwtFilter;
+import com.facemind.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -24,7 +23,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-@EnableWebSecurity
+/**
+ * Spring Security에 필요한 설정
+ */
+@EnableWebSecurity  // spring security 방화벽을 켜겠다.
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
@@ -39,6 +41,7 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
+    // ~에 대한 경로의 요청을 무시
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web -> web.ignoring()
@@ -55,6 +58,7 @@ public class SecurityConfig{
 
     /**
      * ⭐⭐⭐ Spring Security의 동작이 여기서 결정된다.
+     * Spring Security의 보안 필터 체인을 구성하는 SecurityFilterChain 빈을 생성 - Spring Security 필터들의 설정과 연결을 정의
      * @param http
      * @param introspector
      * @return

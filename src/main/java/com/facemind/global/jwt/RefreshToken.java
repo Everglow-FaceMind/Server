@@ -1,4 +1,4 @@
-package com.facemind.global.token;
+package com.facemind.global.jwt;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RefreshToken {
-    @Id @Column(name = "refresh_token_key")
-    private String key;  // member id
+    @Id @Column(name = "email")
+    private String email;
 
-    @Column(name = "refresh_token_value")
-    private String value; //token
+    @Column(name = "refresh_token")
+    private String refreshToken;
 
     public RefreshToken updateValue(String token){
-        this.value = token;
+        this.refreshToken = token;
         return this;
     }
 }

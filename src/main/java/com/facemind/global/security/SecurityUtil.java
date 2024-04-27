@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+/**
+ * Spring Context에서 전역으로 유저 정보를 제공하는 유틸 클래스
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityUtil {
     /**

@@ -11,4 +11,5 @@ public class MemberRequestDto {
     private String email;
     private String password;
     private String nickname;
+    private Boolean alarmAllowance;
 }

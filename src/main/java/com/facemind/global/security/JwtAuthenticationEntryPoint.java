@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * 인증 정보 없을 때 401 error
+ */
 @Slf4j
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
