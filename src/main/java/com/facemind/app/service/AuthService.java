@@ -7,10 +7,13 @@ import com.facemind.app.web.dto.MemberRequestDto;
 import com.facemind.app.web.dto.MemberResponseDto;
 import com.facemind.app.repository.MemberRepository;
 import com.facemind.app.repository.RefreshTokenRepository;
+import com.facemind.global.exception.ErrorCode;
+import com.facemind.global.exception.RestApiException;
 import com.facemind.global.jwt.RefreshToken;
 import com.facemind.global.jwt.TokenProvider;
 import com.facemind.global.jwt.dto.TokenDto;
 import com.facemind.global.jwt.dto.TokenRequestDto;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -79,7 +83,7 @@ public class AuthService {
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {
         // 1. Refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
-            throw new RuntimeException("Refresh Token이 유효하지 않습니다.");
+            throw new RestApiException(ErrorCode.TOKEN_NOT_VALIDATE);
         }
 
         // 2. Access Token 에서 Member 정보 추출
@@ -103,5 +107,32 @@ public class AuthService {
 
         // 토큰 발급
         return tokenDto;
+    }
+
+    /**
+     * accessToken으로 member 찾기
+     * @param accessToken
+     * @return member
+     */
+    @Transactional
+    public Member extractMemberId(String bearerToken) {
+        String accessToken = resolveToken(bearerToken);
+        // 1. 토큰 검증
+        if (!tokenProvider.validateToken(accessToken)) {
+            throw new RestApiException(ErrorCode.TOKEN_NOT_VALIDATE);
+        }
+
+        // 2. Access Token 에서 member 정보 추출
+        Authentication authentication = tokenProvider.getAuthentication(accessToken);
+
+        // 3. 존재하는 이메일인지 확인 및 반환
+        return memberRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
+    }
+
+    private String resolveToken(String accessToken){
+        if(StringUtils.hasText(accessToken) && accessToken.startsWith("Bearer ")){
+            return accessToken.split(" ")[1].trim();
+        }
+        return null;
     }
 }

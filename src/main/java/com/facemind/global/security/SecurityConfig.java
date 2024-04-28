@@ -51,7 +51,7 @@ public class SecurityConfig{
                 .requestMatchers(new AntPathRequestMatcher( "/js/**"))
                 .requestMatchers(new AntPathRequestMatcher( "/img/**"))
                 .requestMatchers(new AntPathRequestMatcher( "/lib/**"))
-                .requestMatchers(new AntPathRequestMatcher("/journals/**"))
+                //.requestMatchers(new AntPathRequestMatcher("/journals/**"))
         );
     }
 
