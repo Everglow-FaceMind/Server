@@ -25,6 +25,6 @@ public class Member {
     @Column(nullable = false)
     private Boolean alarmAllowance;
 
-    @Enumerated(EnumType.STRING)
-    private Auth authority;
+    //@Enumerated(EnumType.STRING)
+    //private Auth authority;
 }

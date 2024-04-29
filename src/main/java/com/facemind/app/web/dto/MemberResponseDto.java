@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberResponseDto {
     private Long id;
-    private String nickname;
     private String email;
     private String password;
-    private String auth;
+    private String nickname;
+    //private String auth;
 }

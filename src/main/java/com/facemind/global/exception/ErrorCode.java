@@ -17,6 +17,9 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요."),
     INVALID_HTTP_METHOD(HttpStatus.METHOD_NOT_ALLOWED, 400, "잘못된 Http Method 요청입니다."),
 
+    //AUTH (1000번대)
+    TOKEN_NOT_VALIDATE(HttpStatus.BAD_REQUEST, 1001, "Token이 유효하지 않습니다."),
+
     //MEMBER (2000번대)
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, 2001, "존재하지 않는 회원입니다."),
 

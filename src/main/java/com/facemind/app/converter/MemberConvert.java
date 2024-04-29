@@ -10,7 +10,7 @@ public class MemberConvert {
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .password(member.getPassword())
-                .auth(String.valueOf(member.getAuthority()))
+                //.auth(String.valueOf(member.getAuthority()))
                 .build();
     }
 }

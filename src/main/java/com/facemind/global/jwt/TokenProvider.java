@@ -1,6 +1,6 @@
-package com.facemind.global.token;
+package com.facemind.global.jwt;
 
-import com.facemind.global.token.dto.TokenDto;
+import com.facemind.global.jwt.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -21,6 +21,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+/**
+ * 유저 정보로 JWT 토큰을 만들거나, 토큰을 바탕으로 유저 정보를 가져옴
+ */
 @Slf4j
 @Component
 public class TokenProvider {
@@ -31,15 +34,19 @@ public class TokenProvider {
 
     private final Key key;
 
+    /**
+     * key 생성
+     * @param secretKey
+     */
     public TokenProvider(@Value("${jwt.secret}") String secretKey){
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     /**
-     * 토큰 생성
+     * 유저 정보 -> 토큰 생성
      * @param authentication
-     * @return
+     * @return TokenDto
      */
     public TokenDto generateTokenDto(Authentication authentication){
         // 권한 가져옴
@@ -58,7 +65,7 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
-        //RefreshToken
+        // generate Refresh Token
         String refreshToken = Jwts.builder()
                 .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
                 .signWith(key, SignatureAlgorithm.HS512)
@@ -72,6 +79,11 @@ public class TokenProvider {
                 .build();
     }
 
+    /**
+     * access 토큰 -> 유저 정보 반환
+     * @param accessToken
+     * @return Authentication 객체를 생성 + 반환
+     */
     public Authentication getAuthentication(String accessToken){
         //토큰 복호화
         Claims claims = parseClaim(accessToken);
@@ -86,16 +98,16 @@ public class TokenProvider {
                         .map(SimpleGrantedAuthority::new)
                         .toList();
 
-        // UserDetails 객체 만들어서 Authentication 리탄
+        // 토큰을 복호화하고, 토큰에 저장된 권한 정보를 추출하여 UserDetails 객체를 생성
         UserDetails principal = new User(claims.getSubject(), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 
     /**
-     * 토큰 검증
+     * 토큰의 유효성 검사
      * @param token
-     * @return
+     * @return 토큰이 유효하면 true, 아니면 false
      */
     public boolean validateToken(String token){
         try{
@@ -113,6 +125,11 @@ public class TokenProvider {
         return false;
     }
 
+    /**
+     * access Token을 받아서 해당 토큰의 claims 정보를 추출하여 파싱
+     * @param accessToken
+     * @return claims 정보
+     */
     private Claims parseClaim(String accessToken){
         try{
             return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();

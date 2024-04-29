@@ -7,6 +7,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * Spring Security와 함께 사용되는 필터로, CORS 구성을 처리하는데 사용
+ */
 @Configuration
 public class CorsConfig {
 
@@ -19,7 +22,8 @@ public class CorsConfig {
         config.addAllowedHeader("*");  // 모든 http 요청 header에 응답을 허용하겠다.
         config.addAllowedMethod("*");  // 모든 post, get, put, delete, patch 요청을 허용하겠다.
 
-        source.registerCorsConfiguration("**", config);  // 모든 경로에 대한 요청을 CORS 정책에 따라 처리
+        //⭐모든 패턴의 URL에 대한 CORS 구성을 CorsConfiguration 객체와 함께 등록. 이렇게 함으로써 모든 경로에 대한 요청은 CORS 정책에 따라 처리
+        source.registerCorsConfiguration("**", config);
         return new CorsFilter(source);
     }
 }

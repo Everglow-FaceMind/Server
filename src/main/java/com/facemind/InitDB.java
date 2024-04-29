@@ -35,7 +35,7 @@ public class InitDB {
                     .nickname("aaa")
                     .password("1111")
                     .alarmAllowance(true)
-                    .authority(Auth.ROLE_ADMIN)
+                    //.authority(Auth.ROLE_ADMIN)
                     .build();
             em.persist(member1);
 

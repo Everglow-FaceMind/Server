@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * 접근 권한이 없을 때 403 error
+ */
 @Slf4j
 @Component
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
