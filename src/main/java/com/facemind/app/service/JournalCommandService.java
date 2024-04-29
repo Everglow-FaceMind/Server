@@ -1,7 +1,6 @@
 package com.facemind.app.service;
 
 import com.facemind.app.domain.*;
-import com.facemind.app.repository.JournalImplRepository;
 import com.facemind.app.repository.JournalRepository;
 import com.facemind.app.repository.ResultRepository;
 import com.facemind.global.exception.ErrorCode;
@@ -21,7 +20,6 @@ import static com.facemind.app.web.dto.JournalRequest.JournalOnlyDto;
 @Slf4j
 public class JournalCommandService {
     private final JournalRepository journalRepository;
-    private final JournalImplRepository journalImplRepository;
     private final ResultRepository resultRepository;
 
     /**

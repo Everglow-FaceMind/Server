@@ -17,17 +17,17 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요."),
     INVALID_HTTP_METHOD(HttpStatus.METHOD_NOT_ALLOWED, 400, "잘못된 Http Method 요청입니다."),
 
-    //AUTH (1000번대)
-    TOKEN_NOT_VALIDATE(HttpStatus.BAD_REQUEST, 1001, "Token이 유효하지 않습니다."),
+    //AUTH (2000번대)
+    TOKEN_NOT_VALIDATE(HttpStatus.BAD_REQUEST, 2001, "Token이 유효하지 않습니다."),
 
-    //MEMBER (2000번대)
-    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, 2001, "존재하지 않는 회원입니다."),
+    //MEMBER (3000번대)
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, 3001, "존재하지 않는 회원입니다."),
 
-    //RESULT (3000번대)
-    RESULT_NOT_FOUND(HttpStatus.BAD_REQUEST, 3001, "존재하지 않는 검사 결과입니다."),
+    //RESULT (4000번대)
+    RESULT_NOT_FOUND(HttpStatus.BAD_REQUEST, 4001, "존재하지 않는 검사 결과입니다."),
 
-    //JOURNAL (4000번대)
-    JOURNAL_NOT_FOUND(HttpStatus.BAD_REQUEST, 4001, "존재하지 않는 일지입니다.");
+    //JOURNAL (5000번대)
+    JOURNAL_NOT_FOUND(HttpStatus.BAD_REQUEST, 5001, "존재하지 않는 일지입니다.");
 
 
     private final HttpStatus httpStatus;

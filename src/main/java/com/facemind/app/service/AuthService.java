@@ -44,7 +44,7 @@ public class AuthService {
                 .password(password)
                 .nickname(memberRequestDto.getNickname())
                 .alarmAllowance(memberRequestDto.getAlarmAllowance())
-                //.authority(Auth.ROLE_USER)
+                .introduction(memberRequestDto.getIntroduction())
                 .build();
 
         memberRepository.save(member);
@@ -111,7 +111,7 @@ public class AuthService {
 
     /**
      * accessToken으로 member 찾기
-     * @param accessToken
+     * @param bearerToken
      * @return member
      */
     @Transactional
