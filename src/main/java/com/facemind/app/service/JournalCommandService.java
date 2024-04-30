@@ -1,7 +1,6 @@
 package com.facemind.app.service;
 
 import com.facemind.app.domain.*;
-import com.facemind.app.repository.JournalImplRepository;
 import com.facemind.app.repository.JournalRepository;
 import com.facemind.app.repository.ResultRepository;
 import com.facemind.global.exception.ErrorCode;
@@ -21,7 +20,6 @@ import static com.facemind.app.web.dto.JournalRequest.JournalOnlyDto;
 @Slf4j
 public class JournalCommandService {
     private final JournalRepository journalRepository;
-    private final JournalImplRepository journalImplRepository;
     private final ResultRepository resultRepository;
 
     /**
@@ -33,11 +31,13 @@ public class JournalCommandService {
      */
     @Transactional
     public Long createJournal(Member member, Long resultId, JournalOnlyDto journalOnlyDto) {
+        Result result = findResultById(resultId);
         Journal journal = Journal.builder()
                 .note(journalOnlyDto.getNote())
                 .member(member)
-                .result(findResultById(resultId))
+                //.result(result)
                 .build();
+        result.setJournal(journal);
         mapEmotionAndJournal(journalOnlyDto.getEmotions(), journal);
         mapCauseAndJournal(journalOnlyDto.getCause(), journal);
         return journalRepository.save(journal).getId();

@@ -40,7 +40,11 @@ public class InitDB {
             em.persist(member1);
 
             Result result1 = Result.builder()
-                    .date(LocalDateTime.now())
+                    .dateTime(LocalDateTime.now())
+                    .heartRateAvg(80)
+                    .heartRateMax(100)
+                    .heartRateMin(60)
+                    .stressLevel(45)
                     .member(member1)
                     .build();
             em.persist(result1);

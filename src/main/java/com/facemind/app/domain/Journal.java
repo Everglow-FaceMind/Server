@@ -47,4 +47,8 @@ public class Journal {
         cause.setJournal(this);
         this.causes.add(cause);
     }
+
+    public void setResult(Result result){
+        this.result = result;
+    }
 }
