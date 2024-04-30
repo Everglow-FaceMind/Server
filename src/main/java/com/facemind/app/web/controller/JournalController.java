@@ -35,6 +35,18 @@ public class JournalController {
         );
     }
 
+    @GetMapping("/daily")
+    public ResponseEntity<JournalResponse.DailyDto> findDailyJournal(
+        @RequestParam("date") String date,
+        HttpServletRequest request
+    ){
+        Member member = authService.extractMemberId(request.getHeader("Authorization"));
+        JournalResponse.DailyDto dailyDto = journalQueryService.findDailyJournal(date, member);
+        return new ResponseEntity<>(
+                dailyDto, HttpStatus.OK
+        );
+    }
+
     @PostMapping("/{result-id}")
     public ResponseEntity<SuccessResponse.JournalIdDto> createJournal(
             @PathVariable("result-id") Long id,

@@ -33,4 +33,12 @@ public class Result {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToOne(mappedBy = "result")
+    private Journal journal;
+
+    public void setJournal(Journal journal){
+        this.journal = journal;
+        journal.setResult(this);
+    }
+
 }

@@ -31,11 +31,13 @@ public class JournalCommandService {
      */
     @Transactional
     public Long createJournal(Member member, Long resultId, JournalOnlyDto journalOnlyDto) {
+        Result result = findResultById(resultId);
         Journal journal = Journal.builder()
                 .note(journalOnlyDto.getNote())
                 .member(member)
-                .result(findResultById(resultId))
+                //.result(result)
                 .build();
+        result.setJournal(journal);
         mapEmotionAndJournal(journalOnlyDto.getEmotions(), journal);
         mapCauseAndJournal(journalOnlyDto.getCause(), journal);
         return journalRepository.save(journal).getId();
