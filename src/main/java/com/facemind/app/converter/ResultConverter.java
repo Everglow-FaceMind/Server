@@ -23,4 +23,6 @@ public class ResultConverter {
                         .stressRate(r.getStressRate()).build()
         ).toList();
     }
+
+    public static
 }

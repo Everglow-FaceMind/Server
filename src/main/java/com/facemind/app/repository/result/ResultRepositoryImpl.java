@@ -1,6 +1,8 @@
 package com.facemind.app.repository.result;
 
 import com.facemind.app.domain.Result;
+import com.facemind.app.web.dto.CalenderResponseDto;
+import com.facemind.app.web.dto.WeeklyHeartRateDto;
 import com.facemind.global.exception.ErrorCode;
 import com.facemind.global.exception.RestApiException;
 import jakarta.persistence.EntityManager;
@@ -33,6 +35,26 @@ public class ResultRepositoryImpl implements ResultCustomRepository{
                     .setParameter("date", date)
                     .getResultList();
         }catch (NoResultException e){
+            throw new RestApiException(ErrorCode.RESULT_NOT_FOUND);
+        }
+    }
+
+    @Override
+    public List<WeeklyHeartRateDto> getWeeklyHeartRate(LocalDate startDate, LocalDate endDate, Long memberId) {
+        try {
+            return em.createQuery(
+                            "select new com.facemind.app.web.dto.WeeklyHeartRateDto(function('DATE', r.dateTime), max(r.heartRateMax), min(r.heartRateMin))" +
+                                    " from Result r" +
+                                    //" join fetch r.member m" +
+                                    " where r.member.id = :memberId" +
+                                    " and function('DATE', r.dateTime) between :startDate and :endDate" +
+                                    " group by function('DATE', r.dateTime)" +
+                                    " order by function('DATE', r.dateTime) asc", WeeklyHeartRateDto.class)
+                    .setParameter("memberId", memberId)
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .getResultList();
+        } catch (NoResultException e) {
             throw new RestApiException(ErrorCode.RESULT_NOT_FOUND);
         }
     }

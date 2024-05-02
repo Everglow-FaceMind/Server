@@ -6,7 +6,10 @@ import com.facemind.app.service.AuthService;
 import com.facemind.app.service.ResultQueryService;
 import com.facemind.app.web.dto.CalenderResponseDto;
 import com.facemind.app.web.dto.ResultResponse;
+import com.facemind.app.web.dto.WeeklyHeartRateDto;
+import com.facemind.app.web.dto.WeeklyStressLevelDto;
 import com.facemind.global.dateUtil.ConvertDate;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,7 @@ public class ResultController {
     private final AuthService authService;
 
     @GetMapping("/home")
+    @Operation(summary = "홈(캘린더) 조회")
     public ResponseEntity<ResultResponse.HomeDto> findHomeInfo(
             @RequestParam(required = false) String date,
             @RequestParam(defaultValue = "max") String sort,
@@ -42,5 +46,22 @@ public class ResultController {
         return new ResponseEntity<>(
                 ResultConverter.toHomeDto(member, results), HttpStatus.OK
         );
+    }
+
+    @GetMapping("/statistics")
+    @Operation(summary = "분석 결과 조회")
+    public ResponseEntity<> findStatistics(
+            @RequestParam(required = false) String date,
+            HttpServletRequest request
+    ){
+        Member member = authService.extractMemberId(request.getHeader("Authorization"));
+        LocalDate localDate;
+        if(date == null){localDate = LocalDate.now();}
+        else{localDate = ConvertDate.toLocalDate(date);}
+        List<WeeklyHeartRateDto> heartRates = resultQueryService.getWeeklyHeartRate(localDate, member);
+        List<WeeklyStressLevelDto> stresses = resultQueryService.getWeeklyStressLevel(localDate, member);
+//        return new ResponseEntity<>(
+//                ResultConverter , HttpStatus.OK
+//        )
     }
 }
