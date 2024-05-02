@@ -20,7 +20,7 @@ public class InitDB {
 
     @PostConstruct
     public void init(){
-       initService.initDB();
+       //initService.initDB();
     }
 
     @Service
@@ -44,7 +44,7 @@ public class InitDB {
                     .heartRateAvg(80)
                     .heartRateMax(100)
                     .heartRateMin(60)
-                    .stressLevel(45)
+                    .stressRate(45)
                     .member(member1)
                     .build();
             em.persist(result1);

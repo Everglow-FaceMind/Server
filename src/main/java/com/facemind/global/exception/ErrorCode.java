@@ -30,7 +30,10 @@ public enum ErrorCode {
     JOURNAL_NOT_FOUND(HttpStatus.BAD_REQUEST, 5001, "존재하지 않는 일지입니다."),
 
     //DATE (6000번대)
-    DATE_PARSING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 6001, "날짜 parsing에 문제가 발생했습니다.");
+    DATE_PARSING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 6001, "날짜 parsing에 문제가 발생했습니다."),
+
+    //SORT (7000번대)
+    INVALID_SORT_TYPE(HttpStatus.BAD_REQUEST, 7001, "정렬 방식이 잘못되었습니다.");
 
     private final HttpStatus httpStatus;
     private final int code;

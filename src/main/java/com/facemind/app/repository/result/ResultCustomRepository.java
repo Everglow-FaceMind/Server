@@ -1,4 +1,4 @@
-package com.facemind.app.repository;
+package com.facemind.app.repository.result;
 
 import com.facemind.app.domain.Result;
 

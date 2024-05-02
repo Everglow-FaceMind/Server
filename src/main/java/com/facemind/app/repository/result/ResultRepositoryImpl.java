@@ -1,4 +1,4 @@
-package com.facemind.app.repository;
+package com.facemind.app.repository.result;
 
 import com.facemind.app.domain.Result;
 import com.facemind.global.exception.ErrorCode;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
