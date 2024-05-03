@@ -7,6 +7,8 @@ import com.facemind.app.service.JournalQueryService;
 import com.facemind.app.web.dto.JournalRequest;
 import com.facemind.app.web.dto.JournalResponse;
 import com.facemind.app.web.dto.SuccessResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/journals")
+@Tag(name = "일지(journal) 컨트롤러", description = "header에 access token 필수")
 public class JournalController {
     private final JournalCommandService journalCommandService;
     private final JournalQueryService journalQueryService;
     private final AuthService authService;
 
+    @Operation(summary = "일지 단건 조회")
     @GetMapping("/{journal-id}")
     public ResponseEntity<JournalResponse.SingleDto> findSingleJournal(
             @PathVariable("journal-id") Long id,
@@ -35,6 +39,7 @@ public class JournalController {
         );
     }
 
+    @Operation(summary = "일자별(날짜별) 검사결과 & 일지 조회")
     @GetMapping("/daily")
     public ResponseEntity<JournalResponse.DailyDto> findDailyJournal(
         @RequestParam("date") String date,
@@ -47,6 +52,7 @@ public class JournalController {
         );
     }
 
+    @Operation(summary = "새로운 일지 등록")
     @PostMapping("/{result-id}")
     public ResponseEntity<SuccessResponse.JournalIdDto> createJournal(
             @PathVariable("result-id") Long id,
@@ -61,6 +67,7 @@ public class JournalController {
         );
     }
 
+    @Operation(summary = "일지 수정")
     @PatchMapping("/{journal-id}")
     public ResponseEntity<SuccessResponse.MessageDto> modifyJournal(
             @PathVariable("journal-id") Long id,
@@ -75,6 +82,7 @@ public class JournalController {
         );
     }
 
+    @Operation(summary = "일지 삭제")
     @DeleteMapping("/{journal-id}")
     public ResponseEntity<SuccessResponse.MessageDto> deleteJournal(
             @PathVariable("journal-id") Long id,

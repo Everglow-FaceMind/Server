@@ -8,7 +8,6 @@ import com.facemind.app.web.dto.JournalResponse;
 import com.facemind.global.dateUtil.DayOfWeek;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +22,7 @@ public class JournalConverter {
                 .heartRateMin(journal.getResult().getHeartRateMin())
                 .heartRateMax(journal.getResult().getHeartRateMax())
                 .heartRateAvg(journal.getResult().getHeartRateAvg())
-                .stressLevel(journal.getResult().getStressLevel())
+                .stressRate(journal.getResult().getStressRate())
                 .emotion(journal.getEmotions().stream().map(Emotion::getName).toList())
                 .cause(journal.getCauses().stream().map(Cause::getName).toList())
                 .note(journal.getNote())
@@ -45,7 +44,7 @@ public class JournalConverter {
                         .heartRateMin(r.getHeartRateMin())
                         .heartRateMax(r.getHeartRateMax())
                         .heartRateAvg(r.getHeartRateAvg())
-                        .stressLevel(r.getStressLevel())
+                        .stressRate(r.getStressRate())
                         .journalDetail(toJournalDetail(r))
                         .build()
         ).collect(Collectors.toList());

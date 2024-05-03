@@ -1,4 +1,4 @@
-package com.facemind.app.repository;
+package com.facemind.app.repository.journal;
 
 import com.facemind.app.domain.Journal;
 import com.facemind.app.domain.Result;

@@ -20,7 +20,7 @@ public class JournalResponse {
         private Integer heartRateMin;
         private Integer heartRateMax;
         private Integer heartRateAvg;
-        private Integer stressLevel;
+        private Integer stressRate;
         private List<String> emotion;
         private List<String> cause;
         private String note;
@@ -45,7 +45,7 @@ public class JournalResponse {
         private Integer heartRateMin;
         private Integer heartRateMax;
         private Integer heartRateAvg;
-        private Integer stressLevel;
+        private Integer stressRate;
         private JournalDetail journalDetail;
     }
 

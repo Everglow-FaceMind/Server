@@ -1,8 +1,8 @@
 package com.facemind.app.service;
 
 import com.facemind.app.domain.*;
-import com.facemind.app.repository.JournalRepository;
-import com.facemind.app.repository.ResultRepository;
+import com.facemind.app.repository.journal.JournalRepository;
+import com.facemind.app.repository.result.ResultRepository;
 import com.facemind.global.exception.ErrorCode;
 import com.facemind.global.exception.RestApiException;
 import lombok.RequiredArgsConstructor;

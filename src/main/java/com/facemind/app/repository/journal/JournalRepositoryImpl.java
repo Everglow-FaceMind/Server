@@ -1,7 +1,6 @@
-package com.facemind.app.repository;
+package com.facemind.app.repository.journal;
 
 import com.facemind.app.domain.Journal;
-import com.facemind.app.domain.Result;
 import com.facemind.global.exception.ErrorCode;
 import com.facemind.global.exception.RestApiException;
 import jakarta.persistence.EntityManager;
@@ -9,10 +8,6 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
