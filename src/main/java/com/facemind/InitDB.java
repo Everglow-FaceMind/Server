@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class InitDB {
     private final InitService initService;
@@ -47,13 +47,14 @@ public class InitDB {
                     .stressRate(45)
                     .member(member1)
                     .build();
+
             em.persist(result1);
 
-            Journal journal1 = Journal.builder()
-                    .note("note")
-                    .member(member1)
-                    .result(result1)
-                    .build();
+//            Journal journal1 = Journal.builder()
+//                    .note("note")
+//                    .member(member1)
+//                    .result(result1)
+//                    .build();
             //em.persist(journal1);
         }
 

@@ -4,10 +4,7 @@ import com.facemind.app.converter.ResultConverter;
 import com.facemind.app.domain.Member;
 import com.facemind.app.service.AuthService;
 import com.facemind.app.service.ResultQueryService;
-import com.facemind.app.web.dto.CalenderResponseDto;
-import com.facemind.app.web.dto.ResultResponse;
-import com.facemind.app.web.dto.WeeklyHeartRateDto;
-import com.facemind.app.web.dto.WeeklyStressLevelDto;
+import com.facemind.app.web.dto.*;
 import com.facemind.global.dateUtil.ConvertDate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,13 +41,14 @@ public class ResultController {
         else{localDate = ConvertDate.toLocalDate(date);}
         List<CalenderResponseDto> results = resultQueryService.findCalenderInfo(localDate, sort, member);
         return new ResponseEntity<>(
-                ResultConverter.toHomeDto(member, results), HttpStatus.OK
+                ResultConverter.toHomeDto(member, results),
+                HttpStatus.OK
         );
     }
 
     @GetMapping("/statistics")
     @Operation(summary = "분석 결과 조회")
-    public ResponseEntity<> findStatistics(
+    public ResponseEntity<StatisticsResponse.WeeklyStatisticsDto> findStatistics(
             @RequestParam(required = false) String date,
             HttpServletRequest request
     ){
@@ -60,8 +58,9 @@ public class ResultController {
         else{localDate = ConvertDate.toLocalDate(date);}
         List<WeeklyHeartRateDto> heartRates = resultQueryService.getWeeklyHeartRate(localDate, member);
         List<WeeklyStressLevelDto> stresses = resultQueryService.getWeeklyStressLevel(localDate, member);
-//        return new ResponseEntity<>(
-//                ResultConverter , HttpStatus.OK
-//        )
+        return new ResponseEntity<>(
+                ResultConverter.toWeeklyStatisticsDto(localDate, heartRates, stresses),
+                HttpStatus.OK
+        );
     }
 }

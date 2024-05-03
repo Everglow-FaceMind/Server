@@ -11,4 +11,6 @@ public interface ResultCustomRepository {
     List<Result> findDailyResultAndJournal(LocalDate date, Long id);
 
     List<WeeklyHeartRateDto> getWeeklyHeartRate(LocalDate startDate, LocalDate endDate, Long id);
+
+    List<Result> getWeeklyStressRate(LocalDate startDate, LocalDate endDate, Long id);
 }

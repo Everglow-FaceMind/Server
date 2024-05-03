@@ -58,4 +58,21 @@ public class ResultRepositoryImpl implements ResultCustomRepository{
             throw new RestApiException(ErrorCode.RESULT_NOT_FOUND);
         }
     }
+
+    @Override
+    public List<Result> getWeeklyStressRate(LocalDate startDate, LocalDate endDate, Long memberId) {
+        try {
+            return em.createQuery(
+                    "select r from Result r"+
+                            " join fetch r.member m"+
+                            " where m.id = :memberId"+
+                            " and function('DATE', r.dateTime) between :startDate and :endDate", Result.class)
+                    .setParameter("memberId", memberId)
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .getResultList();
+        } catch (NoResultException e) {
+            throw new RestApiException(ErrorCode.RESULT_NOT_FOUND);
+        }
+    }
 }
