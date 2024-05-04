@@ -54,6 +54,7 @@ public class SecurityConfig{
                 .requestMatchers(new AntPathRequestMatcher( "/swagger-ui/**"))
                 .requestMatchers(new AntPathRequestMatcher( "/v3/api-docs/**"))
                 .requestMatchers(new AntPathRequestMatcher("/health"))
+                .requestMatchers(new AntPathRequestMatcher("/checkAPI"))
                 //.requestMatchers(new AntPathRequestMatcher("/journals/**"))
         );
     }
