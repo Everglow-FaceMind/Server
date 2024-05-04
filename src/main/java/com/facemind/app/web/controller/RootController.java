@@ -11,4 +11,10 @@ public class RootController {
         return "HEALTHY!";
     }
 
+    @GetMapping("/checkAPI")
+    public String checkAPI(){
+        return "당신은 무중단 CICD에 성공했습니다. 미쳤다리";
+    }
+
+
 }
