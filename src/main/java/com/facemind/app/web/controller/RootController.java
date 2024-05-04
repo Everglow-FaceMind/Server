@@ -13,7 +13,7 @@ public class RootController {
 
     @GetMapping("/checkAPI")
     public String checkAPI(){
-        return "당신은 무중단 CICD에 성공했습니다. 미쳤다리";
+        return "당신은 무중단 CI/CD에 성공했습니다. 미쳤다리";
     }
 
 
