@@ -19,6 +19,7 @@ public enum ErrorCode {
 
     //AUTH (2000번대)
     TOKEN_NOT_VALIDATE(HttpStatus.BAD_REQUEST, 2001, "Token이 유효하지 않습니다."),
+    EMAIL_ALREADY_EXIST(HttpStatus.BAD_REQUEST, 2002, "이미 존재하는 email 입니다. "),
 
     //MEMBER (3000번대)
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, 3001, "존재하지 않는 회원입니다."),

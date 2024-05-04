@@ -35,7 +35,7 @@ public class AuthService {
     @Transactional
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
         if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
-            throw new RuntimeException("이미 가입되어 있는 유저 입니다.");
+            throw new RestApiException(ErrorCode.EMAIL_ALREADY_EXIST);
         }
         String password = passwordEncoder.encode(memberRequestDto.getPassword());
 
