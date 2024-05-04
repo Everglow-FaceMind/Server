@@ -20,6 +20,7 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
+      # 여기 재실행
       - name : yml 작성 코드
       - uses: actions/checkout@v2
       - run: touch ./src/main/resources/application.yml
