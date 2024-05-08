@@ -39,17 +39,6 @@ public class InitDB {
                     .build();
             em.persist(member1);
 
-            Result result1 = Result.builder()
-                    .dateTime(LocalDateTime.now())
-                    .heartRateAvg(80)
-                    .heartRateMax(100)
-                    .heartRateMin(60)
-                    .stressRate(45)
-                    .member(member1)
-                    .build();
-
-            em.persist(result1);
-
 //            Journal journal1 = Journal.builder()
 //                    .note("note")
 //                    .member(member1)

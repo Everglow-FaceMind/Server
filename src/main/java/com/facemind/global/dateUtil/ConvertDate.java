@@ -1,6 +1,7 @@
 package com.facemind.global.dateUtil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ConvertDate {
@@ -14,4 +15,14 @@ public class ConvertDate {
         // LocalDate 객체를 사용해 자정 시각에 해당하는 LocalDateTime 객체를 반환
         return date;
     }
+
+    public static LocalDateTime toLocalDateTime(String dateString, String timeString){
+        dateString = dateString.replace("\"", "");
+        timeString = timeString.replace("\"", "");
+
+        LocalDateTime date = LocalDateTime.parse(dateString+ " "+timeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return date;
+    }
+
+
 }

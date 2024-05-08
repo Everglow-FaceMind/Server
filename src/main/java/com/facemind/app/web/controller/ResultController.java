@@ -2,20 +2,20 @@ package com.facemind.app.web.controller;
 
 import com.facemind.app.converter.ResultConverter;
 import com.facemind.app.domain.Member;
+import com.facemind.app.domain.Result;
 import com.facemind.app.service.AuthService;
+import com.facemind.app.service.ResultCommandService;
 import com.facemind.app.service.ResultQueryService;
 import com.facemind.app.web.dto.*;
 import com.facemind.global.dateUtil.ConvertDate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +26,7 @@ import java.util.List;
 @Tag(name = "검사 결과 컨트롤러", description = "header에 access token 필수")
 public class ResultController {
     private final ResultQueryService resultQueryService;
+    private final ResultCommandService resultCommandService;
     private final AuthService authService;
 
     @GetMapping("/home")
@@ -60,6 +61,19 @@ public class ResultController {
         List<WeeklyStressLevelDto> stresses = resultQueryService.getWeeklyStressLevel(localDate, member);
         return new ResponseEntity<>(
                 ResultConverter.toWeeklyStatisticsDto(localDate, heartRates, stresses),
+                HttpStatus.OK
+        );
+    }
+
+    @PostMapping("/test")
+    public ResponseEntity<ResultResponse.addTestCalenderResultDto> addTestResult(
+            @RequestBody @Valid TestResultRequest.addTestResultDTO dto,
+            HttpServletRequest request
+    ){
+        Member member = authService.extractMemberId(request.getHeader("Authorization"));
+        Result result = resultCommandService.addTestResult(member, dto);
+        return new ResponseEntity<>(
+                ResultConverter.toAddTestCalenderResultDto(result),
                 HttpStatus.OK
         );
     }

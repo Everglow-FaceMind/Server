@@ -27,7 +27,7 @@ public class Result {
     private Integer heartRateAvg;
 
     @Column(nullable = false)
-    private Integer stressRate;
+    private Double stressRate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

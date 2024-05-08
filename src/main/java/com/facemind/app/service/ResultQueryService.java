@@ -72,11 +72,11 @@ public class ResultQueryService {
         // {level : 횟수}
         for(Result r:results){
             total += 1;
-            if (r.getStressRate() <= 93) levels.put(1, levels.get(1)+1);
-            else if (r.getStressRate() <= 107) levels.put(2, levels.get(2)+1);
-            else if (r.getStressRate() <= 121) levels.put(3, levels.get(3)+1);
-            else if (r.getStressRate() <= 135) levels.put(4, levels.get(4)+1);
-            else if (r.getStressRate() <= 150) levels.put(5, levels.get(5)+1);
+            if (r.getStressRate() <= 12) levels.put(1, levels.get(1)+1);
+            else if (r.getStressRate() <= 19) levels.put(2, levels.get(2)+1);
+            else if (r.getStressRate() <= 26) levels.put(3, levels.get(3)+1);
+            else if (r.getStressRate() <= 33) levels.put(4, levels.get(4)+1);
+            else if (r.getStressRate() <= 40) levels.put(5, levels.get(5)+1);
         }
 
         // 출력

@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CalenderResponseDto {
     private LocalDate date;
-    private Integer stressRate;
+    private Double stressRate;
 
-    public CalenderResponseDto(java.sql.Date date, Integer stressRate) {
+    public CalenderResponseDto(java.sql.Date date, Double stressRate) {
         this.date = date.toLocalDate(); // java.sql.Date를 LocalDate로 변환
         this.stressRate = stressRate;
     }
