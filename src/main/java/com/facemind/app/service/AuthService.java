@@ -67,7 +67,7 @@ public class AuthService {
 
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
         RefreshToken refreshToken = RefreshToken.builder()
-                .email(authentication.getName()) //TODO : email인지, id 인지 여기 확인
+                .email(authentication.getName())
                 .refreshToken(tokenDto.getRefreshToken())
                 .build();
         refreshTokenRepository.save(refreshToken);

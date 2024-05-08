@@ -24,6 +24,14 @@ public class ResultResponse {
     @AllArgsConstructor
     public static class CalenderDto{
         private String date;
-        private Integer stressRate;
+        private Double stressRate;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class addTestCalenderResultDto{
+        private Long resultId;
     }
 }

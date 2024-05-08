@@ -1,10 +1,9 @@
 package com.facemind.app.converter;
 
 import com.facemind.app.domain.Member;
-import com.facemind.app.web.dto.CalenderResponseDto;
-import com.facemind.app.web.dto.ResultResponse;
-import com.facemind.app.web.dto.WeeklyHeartRateDto;
-import com.facemind.app.web.dto.WeeklyStressLevelDto;
+import com.facemind.app.domain.Result;
+import com.facemind.app.web.dto.*;
+import com.facemind.global.dateUtil.ConvertDate;
 import com.facemind.global.dateUtil.DayOfWeek;
 
 import java.time.LocalDate;
@@ -65,6 +64,23 @@ public class ResultConverter {
             );
         }
         return results;
+    }
+
+    public static Result toResult(TestResultRequest.addTestResultDTO dto, Member member){
+        return Result.builder()
+                .dateTime(ConvertDate.toLocalDateTime(dto.getDate(), dto.getTime()))
+                .heartRateMin(dto.getHeartRateMin())
+                .heartRateMax(dto.getHeartRateMax())
+                .heartRateAvg(dto.getHeartRateAvg())
+                .stressRate(dto.getStressRate())
+                .member(member)
+                .build();
+    }
+
+    public static ResultResponse.addTestCalenderResultDto toAddTestCalenderResultDto(Result result){
+        return ResultResponse.addTestCalenderResultDto.builder()
+                .resultId(result.getId())
+                .build();
     }
 
 }
