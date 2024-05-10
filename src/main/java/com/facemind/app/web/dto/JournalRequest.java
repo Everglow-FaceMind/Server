@@ -1,17 +1,17 @@
 package com.facemind.app.web.dto;
 
-import lombok.*;
+import com.facemind.global.annotation.ListNotEmpty;
+import lombok.Getter;
 
 import java.util.List;
 
 public class JournalRequest {
 
     @Getter
-    @Builder
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class JournalOnlyDto{
+        @ListNotEmpty
         private List<String> emotions;
+        @ListNotEmpty
         private List<String> cause;
         private String note;
     }
