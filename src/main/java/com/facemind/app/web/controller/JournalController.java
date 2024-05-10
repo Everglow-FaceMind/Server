@@ -10,10 +10,12 @@ import com.facemind.app.web.dto.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -56,7 +58,7 @@ public class JournalController {
     @PostMapping("/{result-id}")
     public ResponseEntity<SuccessResponse.JournalIdDto> createJournal(
             @PathVariable("result-id") Long id,
-            @RequestBody JournalRequest.JournalOnlyDto journalOnlyDto,
+            @RequestBody @Valid JournalRequest.JournalOnlyDto journalOnlyDto,
             HttpServletRequest request
     ){
         Member member = authService.extractMemberId(request.getHeader("Authorization"));
@@ -71,7 +73,7 @@ public class JournalController {
     @PatchMapping("/{journal-id}")
     public ResponseEntity<SuccessResponse.MessageDto> modifyJournal(
             @PathVariable("journal-id") Long id,
-            @RequestBody JournalRequest.JournalOnlyDto journalOnlyDto,
+            @RequestBody @Valid JournalRequest.JournalOnlyDto journalOnlyDto,
             HttpServletRequest request
     ){
         Member member = authService.extractMemberId(request.getHeader("Authorization"));
