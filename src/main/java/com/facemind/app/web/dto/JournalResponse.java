@@ -41,6 +41,7 @@ public class JournalResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DailyJournals{
+        private Long resultId;
         private String time;
         private Integer heartRateMin;
         private Integer heartRateMax;

@@ -41,4 +41,8 @@ public class Result {
         journal.setResult(this);
     }
 
+    public void clearJournal(){
+        this.journal = null;
+    }
+
 }
