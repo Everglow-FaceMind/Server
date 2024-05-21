@@ -67,6 +67,7 @@ public class JournalCommandService {
     @Transactional
     public void deleteJournal(Long journalId) {
         Journal journal = findJournalById(journalId);
+        journal.getResult().clearJournal();
         //이거 때문에 e, c의 select 쿼리까지 나감. (jpql 수정)
         journalRepository.deleteById(journal.getId());
     }

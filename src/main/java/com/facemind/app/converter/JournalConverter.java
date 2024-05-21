@@ -40,6 +40,7 @@ public class JournalConverter {
     public static List<JournalResponse.DailyJournals> toDailyJournals(List<Result> results){
         return results.stream().map(r ->
                 JournalResponse.DailyJournals.builder()
+                        .resultId(r.getId())
                         .time(r.getDateTime().format(DateTimeFormatter.ofPattern("HH:mm")))
                         .heartRateMin(r.getHeartRateMin())
                         .heartRateMax(r.getHeartRateMax())

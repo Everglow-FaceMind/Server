@@ -1,7 +1,9 @@
 package com.facemind.app.service;
 
+import com.facemind.app.converter.AuthConverter;
 import com.facemind.app.converter.MemberConvert;
 import com.facemind.app.domain.Member;
+import com.facemind.app.web.dto.AuthResponse;
 import com.facemind.app.web.dto.LoginRequestDto;
 import com.facemind.app.web.dto.MemberRequestDto;
 import com.facemind.app.web.dto.MemberResponseDto;
@@ -60,7 +62,7 @@ public class AuthService {
      * @return TokenDto
      */
     @Transactional
-    public TokenDto login(LoginRequestDto loginRequestDto) {
+    public AuthResponse.LoginDTO login(LoginRequestDto loginRequestDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
@@ -71,7 +73,9 @@ public class AuthService {
                 .refreshToken(tokenDto.getRefreshToken())
                 .build();
         refreshTokenRepository.save(refreshToken);
-        return tokenDto;
+
+        Member member = memberRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RestApiException(ErrorCode.MEMBER_NOT_FOUND));
+        return AuthConverter.toLoginDTO(tokenDto, member);
     }
 
     /**

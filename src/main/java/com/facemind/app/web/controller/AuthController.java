@@ -1,5 +1,6 @@
 package com.facemind.app.web.controller;
 
+import com.facemind.app.web.dto.AuthResponse;
 import com.facemind.app.web.dto.LoginRequestDto;
 import com.facemind.app.web.dto.MemberRequestDto;
 import com.facemind.app.web.dto.MemberResponseDto;
@@ -33,7 +34,7 @@ public class AuthController {
 
     @Operation(summary = "로그인")
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDto loginRequestDto){
+    public ResponseEntity<AuthResponse.LoginDTO> login(@RequestBody LoginRequestDto loginRequestDto){
         return ResponseEntity.ok(authService.login(loginRequestDto));
     }
 
