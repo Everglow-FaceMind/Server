@@ -62,6 +62,11 @@ public class ResultQueryService {
      * Lv.3 ~ 26 <br>
      * Lv.4 ~ 33 <br>
      * Lv.5 ~ 40 <br>
+     * 50~70
+     * 71~90
+     * 91~110
+     * 111~130
+     * 131~150
      */
     private List<WeeklyStressLevelDto> levelingStressRates(List<Result> results){
         HashMap<Integer, Integer> levels = new HashMap<>(){{
@@ -72,12 +77,12 @@ public class ResultQueryService {
         // {level : 횟수}
         for(Result r:results){
             total += 1;
-            if(r.getStressRate() <5 || r.getStressRate()>40) continue;
-            else if (r.getStressRate() <= 12) levels.put(1, levels.get(1)+1);
-            else if (r.getStressRate() <= 19) levels.put(2, levels.get(2)+1);
-            else if (r.getStressRate() <= 26) levels.put(3, levels.get(3)+1);
-            else if (r.getStressRate() <= 33) levels.put(4, levels.get(4)+1);
-            else if (r.getStressRate() <= 40) levels.put(5, levels.get(5)+1);
+            if(r.getStressRate() <50 || r.getStressRate()>150) continue;
+            else if (r.getStressRate() <= 70) levels.put(1, levels.get(1)+1);
+            else if (r.getStressRate() <= 90) levels.put(2, levels.get(2)+1);
+            else if (r.getStressRate() <= 110) levels.put(3, levels.get(3)+1);
+            else if (r.getStressRate() <= 130) levels.put(4, levels.get(4)+1);
+            else if (r.getStressRate() <= 150) levels.put(5, levels.get(5)+1);
         }
 
         // 출력
