@@ -57,11 +57,12 @@ public class ResultQueryService {
     }
 
     /**
-     * Lv.1 80 - 93 <br>
-     * Lv.2 94 - 107 <br>
-     * Lv.3 108 - 121 <br>
-     * Lv.4 122 - 135 <br>
-     * Lv.5 136 - 150 <br>
+     * Lv.1 5~12 <br>
+     * Lv.2 ~ 19 <br>
+     * Lv.3 ~ 26 <br>
+     * Lv.4 ~ 33 <br>
+     * Lv.5 ~ 40 <br>
+     *
      */
     private List<WeeklyStressLevelDto> levelingStressRates(List<Result> results){
         HashMap<Integer, Integer> levels = new HashMap<>(){{
@@ -72,7 +73,8 @@ public class ResultQueryService {
         // {level : 횟수}
         for(Result r:results){
             total += 1;
-            if (r.getStressRate() <= 12) levels.put(1, levels.get(1)+1);
+            if(r.getStressRate() <5 || r.getStressRate()>40) continue;
+            else if (r.getStressRate() <= 12) levels.put(1, levels.get(1)+1);
             else if (r.getStressRate() <= 19) levels.put(2, levels.get(2)+1);
             else if (r.getStressRate() <= 26) levels.put(3, levels.get(3)+1);
             else if (r.getStressRate() <= 33) levels.put(4, levels.get(4)+1);
@@ -81,30 +83,32 @@ public class ResultQueryService {
 
         // 출력
         for (Map.Entry<Integer, Integer> entry : levels.entrySet()) {
-            System.out.println("Level " + entry.getKey() + ": " + entry.getValue() + "%");
+            System.out.println("Level " + entry.getKey() + ": " + entry.getValue() + "개");
         }
 
-        // {level : Percentage}
-        ArrayList<Map.Entry<Integer, Double>> remainders = new ArrayList<>();
+        if (total != 0){
+            // {level : Percentage}
+            ArrayList<Map.Entry<Integer, Double>> remainders = new ArrayList<>();
 
-        int sumOfIntegers = 0;
-        for (Map.Entry<Integer, Integer> entry : levels.entrySet()) {
-            double percentage = (double) entry.getValue() / total * 100;
-            int integerPart = (int) percentage;
-            double remainder = percentage - integerPart;
+            int sumOfIntegers = 0;
+            for (Map.Entry<Integer, Integer> entry : levels.entrySet()) {
+                double percentage = (double) entry.getValue() / total * 100;
+                int integerPart = (int) percentage;
+                double remainder = percentage - integerPart;
 
-            levels.put(entry.getKey(), integerPart);
-            remainders.add(Map.entry(entry.getKey(), remainder));
+                levels.put(entry.getKey(), integerPart);
+                remainders.add(Map.entry(entry.getKey(), remainder));
 
-            sumOfIntegers += integerPart;
-        }
+                sumOfIntegers += integerPart;
+            }
 
-        remainders.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+            remainders.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-        int difference = 100 - sumOfIntegers;
-        for (int i = 0; i < difference; i++) {
-            Map.Entry<Integer, Double> entry = remainders.get(i);
-            levels.put(entry.getKey(), levels.get(entry.getKey()) + 1);
+            int difference = 100 - sumOfIntegers;
+            for (int i = 0; i < difference; i++) {
+                Map.Entry<Integer, Double> entry = remainders.get(i);
+                levels.put(entry.getKey(), levels.get(entry.getKey()) + 1);
+            }
         }
 
         return ResultConverter.toWeeklyStressLevelDto(levels);
